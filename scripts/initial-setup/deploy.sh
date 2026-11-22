@@ -36,9 +36,10 @@
 #     exists) since 00-main.sh itself creates the non-root user.
 #   - If your VPS provider already gave you a non-root sudo user with
 #     SSH set up, just target that user directly from the start —
-#     you don't need root at all. Set NEW_USER in config/server.env
-#     to that username; 02-create-user.sh will detect it already
-#     exists and offer to use it as-is.
+#     you don't need root at all. Set NEW_USER in
+#     scripts/initial-setup/config/server.env to that username;
+#     02-create-user.sh will detect it already exists and offer to
+#     use it as-is.
 #   - After 03-ssh-hardening.sh runs, root login and password auth are
 #     disabled on the server. For any run AFTER that, target the
 #     non-root user instead.
@@ -93,8 +94,8 @@ if [[ ! -f "${REPO_ROOT}/config/server.env" ]]; then
   exit 1
 fi
 
-if [[ ! -f "${REPO_ROOT}/scripts/${REMOTE_SCRIPT}" ]]; then
-  echo "[x] scripts/${REMOTE_SCRIPT} does not exist in this repo." >&2
+if [[ ! -f "${REPO_ROOT}/${REMOTE_SCRIPT}" ]]; then
+  echo "[x] scripts/initial-setup/${REMOTE_SCRIPT} does not exist in this repo." >&2
   exit 1
 fi
 
@@ -124,8 +125,8 @@ build_bundle() {
   echo "set -euo pipefail"
   echo
 
-  echo "# --- embedded: scripts/lib/common.sh ---"
-  extract_functions "${REPO_ROOT}/scripts/lib/common.sh"
+  echo "# --- embedded: lib/common.sh ---"
+  extract_functions "${REPO_ROOT}/lib/common.sh"
   echo
 
   echo "# --- embedded: config/server.env ---"
@@ -135,12 +136,12 @@ build_bundle() {
   if [[ "$REMOTE_SCRIPT" == "00-main.sh" ]]; then
     local f
     for f in "${MAIN_STEPS[@]}"; do
-      echo "# --- embedded: scripts/${f} ---"
-      extract_functions "${REPO_ROOT}/scripts/${f}"
+      echo "# --- embedded: ${f} ---"
+      extract_functions "${REPO_ROOT}/${f}"
       echo
     done
-    echo "# --- embedded: scripts/00-main.sh ---"
-    extract_functions "${REPO_ROOT}/scripts/00-main.sh"
+    echo "# --- embedded: 00-main.sh ---"
+    extract_functions "${REPO_ROOT}/00-main.sh"
     echo
     echo "require_root"
     echo "run_all_steps"
@@ -150,8 +151,8 @@ build_bundle() {
       echo "[x] No function mapping for ${REMOTE_SCRIPT}." >&2
       exit 1
     fi
-    echo "# --- embedded: scripts/${REMOTE_SCRIPT} ---"
-    extract_functions "${REPO_ROOT}/scripts/${REMOTE_SCRIPT}"
+    echo "# --- embedded: ${REMOTE_SCRIPT} ---"
+    extract_functions "${REPO_ROOT}/${REMOTE_SCRIPT}"
     echo
     echo "require_root"
     echo "$fn"

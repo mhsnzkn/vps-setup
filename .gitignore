@@ -1,6 +1,10 @@
 # Per-server config — contains real values and possibly a password.
-# Commit config/server.env.example instead.
-config/server.env
+# Commit scripts/initial-setup/config/server.env.example instead.
+scripts/initial-setup/config/server.env
+
+# Per-user server list — may contain IPs.
+# Commit scripts/update/servers.txt.example instead.
+scripts/update/servers.txt
 
 # macOS / editor noise
 .DS_Store

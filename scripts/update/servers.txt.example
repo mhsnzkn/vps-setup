@@ -1,0 +1,9 @@
+# List of VPS servers to update with update-all.sh
+# Format: <identity_file> <user> <host> [port]
+#
+# Lines starting with # are comments. Blank lines are ignored.
+# Port defaults to 22 if omitted.
+#
+# Examples:
+# ~/.ssh/vps_key            deploy   203.0.113.10
+# ~/.ssh/other_key          admin    198.51.100.5     2222

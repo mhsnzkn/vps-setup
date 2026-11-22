@@ -72,12 +72,12 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   # Source the individual step files so their step_*() functions are
   # defined. Sourcing (not executing) them is a no-op beyond that,
   # thanks to each file's own standalone-runner guard.
-  source "$SCRIPT_DIR/01-updates.sh"
-  source "$SCRIPT_DIR/02-create-user.sh"
-  source "$SCRIPT_DIR/03-ssh-hardening.sh"
-  source "$SCRIPT_DIR/04-firewall.sh"
-  source "$SCRIPT_DIR/05-sysctl-hardening.sh"
-  source "$SCRIPT_DIR/06-docker.sh"
+  source "${SCRIPT_DIR}/01-updates.sh"
+  source "${SCRIPT_DIR}/02-create-user.sh"
+  source "${SCRIPT_DIR}/03-ssh-hardening.sh"
+  source "${SCRIPT_DIR}/04-firewall.sh"
+  source "${SCRIPT_DIR}/05-sysctl-hardening.sh"
+  source "${SCRIPT_DIR}/06-docker.sh"
 
   run_all_steps
 fi

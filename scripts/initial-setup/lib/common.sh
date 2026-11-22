@@ -56,7 +56,7 @@ confirm_or_exit() {
 # message if it hasn't been created yet.
 load_config() {
   local repo_root
-  repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+  repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
   local config_file="${repo_root}/config/server.env"
 
   if [[ ! -f "$config_file" ]]; then
